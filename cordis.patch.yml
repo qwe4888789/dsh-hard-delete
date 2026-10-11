@@ -1,0 +1,12 @@
+# dsh-hard-delete bundle patch：把本插件插进 profile 的 layer stack。
+#
+# 本插件同时声明了 dsh.bundle 与 dsh.client，因此走 bundle 层注册。
+# （对照：只声明 dsh.client、没有 dsh.bundle 的插件不能进 package.json 的
+#  dsh.profile.bundles —— 宿主会以 "declares no dsh.bundle" 拒绝并启动即崩；
+#  那种插件必须走 profile 的 cordis.patch.yml insert。）
+#
+# host 半（exports "."）注册 /api/dsh-hard-delete 下的 loopback 路由；
+# dsh.client 声明让浏览器半（exports "./client"）往侧边栏会话「…」菜单里挂一行「删除」。
+- insert:
+    - id: hard-delete
+      name: 'dsh-hard-delete'
